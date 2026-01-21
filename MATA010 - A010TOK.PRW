@@ -6,33 +6,27 @@
 #Include "fwmbrowse.ch"
 #include "fwmvcdef.ch"   
 
-/*
-
-    Ponto de entrada, para validar o tipo de material se a filial for MEGA
-    Regra aguardando Regiane.
-    20/01/2025
-
-    Robson
-
-*/
+/*################################################################################
+###  A010TOK - Valida na gravação do produto, inclusão e alteração              ###
+###  Ponto de entrada, para validar o tipo de material se a filial for MEGA     ###
+###  Regra MP|PA|PP NÃO PODEM SER CADASTRADOS NA MEGA E NA AIZT                 ###
+###  20/01/2025                                                                 ###
+###                                                                             ###
+###  Robson                                                                     ###
+###                                                                             ###
+##################################################################################*/
 
 User Function A010TOK()
 
     local aArea := GetArea()
-    Local lExecuta := .T.// Validações do usuário para inclusão ou alteração do produto
+    Local lExecuta := .T.
 
+    IF SUBSTR(cFilAnt,1,6) $'01MEGA|02AIZT' .AND. SUBSTR(M->B1_TIPO,1,2) $ 'MP|PA|PP'
 
-
-    IF SUBSTR(cFilAnt,1,6) $'01MEGA' .AND. (M->B1_TIPO =='MP')
-
-
-        //FWAlertWarning("Tipo MP não permitido para esta filial,procure Regiane", "TOTVS")
-            //Help('',1,'Tipo MP',,'Não permitido para esta filial, contate Regiane',1,0)
-        Help(NIL, NIL, "Tipo - MP - ", NIL, "Não permitido na filial  - MEGA - ", 1, 0, NIL, NIL, NIL, NIL, NIL, {"Procure a Regiane"})
+        Help(NIL, NIL, "Campo TIPO ", NIL, "Tipos MP - PA - PP não permitidos nas filiais MEGA E AIZT ", 1, 0, NIL, NIL, NIL, NIL, NIL, {"Escolha um tipo válido."})
         lExecuta      := .F.
     
     endif
-
 
     restArea(aArea)
 
