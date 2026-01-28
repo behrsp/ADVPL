@@ -11,7 +11,7 @@
 ###  Ponto de entrada, para validar o tipo de material se a filial for MEGA     ###
 ###  Regra MP|PA|PP NÃO PODEM SER CADASTRADOS NA MEGA E NA AIZT                 ###
 ###  20/01/2025                                                                 ###
-###                                                                             ###
+###  28/01/2025 correção acrescentei mais um and para codigo G                  ###
 ###  Robson                                                                     ###
 ###                                                                             ###
 ##################################################################################*/
@@ -21,7 +21,7 @@ User Function A010TOK()
     local aArea := GetArea()
     Local lExecuta := .T.
 
-    IF SUBSTR(cFilAnt,1,6) $'01MEGA|02AIZT' .AND. SUBSTR(M->B1_TIPO,1,2) $ 'MP|PA|PP'
+    IF SUBSTR(cFilAnt,1,6) $'01MEGA|02AIZT' .AND. SUBSTR(M->B1_TIPO,1,2) $ 'MP|PA|PP' .AND. SUBSTR(M->B1_COD,1,1) == 'G'
 
         Help(NIL, NIL, "Campo TIPO ", NIL, "Tipos MP - PA - PP não permitidos nas filiais MEGA E AIZT ", 1, 0, NIL, NIL, NIL, NIL, NIL, {"Escolha um tipo válido."})
         lExecuta      := .F.
